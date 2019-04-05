@@ -5,4 +5,5 @@ authors = []
 edition = "2018"
 
 [dependencies]
+log = "*"
 amethyst = "0.10.0"

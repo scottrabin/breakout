@@ -1,0 +1,13 @@
+digraph g {
+    begin [label="program starts", shape=octagon];
+    exit [label="program exits", shape=octagon];
+
+    begin -> MainMenu;
+    MainMenu -> Gameplay;
+    MainMenu -> exit;
+    Gameplay -> Paused [label="push", style=dashed];
+    Paused -> Gameplay [label="pop", style=dashed];
+    Gameplay -> Endgame [style=dashed];
+    Endgame -> MainMenu [style=dashed];
+    Endgame -> exit [style=dashed];
+}
