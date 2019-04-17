@@ -19,7 +19,7 @@ pub mod common {
 
     pub fn ortho_camera(world: &mut World, arena: &Arena) -> Entity {
         let mut trans = Transform::default();
-        trans.set_z(1.);
+        trans.set_translation_z(1.);
         info!("camera location: {:?}", trans.translation().as_slice());
         let lrbt = (
             0.,                  // left

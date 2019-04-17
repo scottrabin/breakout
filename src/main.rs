@@ -16,7 +16,7 @@ use breakout::{states, systems};
 fn main() -> amethyst::Result<()> {
     amethyst::start_logger(Default::default());
 
-    let resource_dir = format!("{}/resources", application_root_dir());
+    let resource_dir = format!("{}/resources", application_root_dir()?.display());
     let config = DisplayConfig::load(format!("{}/display_config.ron", resource_dir));
 
     let pipe = Pipeline::build().with_stage(
@@ -31,7 +31,7 @@ fn main() -> amethyst::Result<()> {
         resource_dir,
         level: 0,
     };
-    warn!("starting amethyst in state: {:?}", start_state);
+    info!("starting amethyst in state: {:?}", start_state);
     let game_data = GameDataBuilder::default()
         .with_bundle(TransformBundle::new())?
         .with_bundle(UiBundle::<String, String>::new())?

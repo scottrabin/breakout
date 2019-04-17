@@ -1,5 +1,5 @@
 use amethyst::{
-    core::{nalgebra::Vector3, Transform},
+    core::{math::Vector3, Transform},
     ecs::{Component, Entity, HashMapStorage},
     prelude::*,
     renderer::SpriteRender,
