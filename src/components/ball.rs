@@ -1,4 +1,11 @@
-use amethyst::ecs::{Component, HashMapStorage};
+use amethyst::{
+    core::{nalgebra::Vector3, Transform},
+    ecs::{Component, Entity, HashMapStorage},
+    prelude::*,
+    renderer::SpriteRender,
+};
+
+use super::Arena;
 
 pub struct Ball {
     radius: f32,
@@ -6,4 +13,21 @@ pub struct Ball {
 
 impl Component for Ball {
     type Storage = HashMapStorage<Self>;
+}
+
+impl Ball {
+    pub fn new(world: &mut World, sprite_render: SpriteRender, arena: &Arena) -> Entity {
+        let trans = Transform::from(Vector3::new(
+            arena.width as f32 / 2.,
+            arena.height as f32 / 2.,
+            0.,
+        ));
+        info!("ball location: {:?}", trans.translation().as_slice());
+        world
+            .create_entity()
+            .with(trans)
+            .with(sprite_render)
+            .with(Ball { radius: 1. })
+            .build()
+    }
 }

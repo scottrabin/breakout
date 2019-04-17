@@ -74,10 +74,10 @@ impl SimpleState for MainMenu {
             }) => {
                 self.hydrate(data.world);
                 match Some(target) {
-                    t if t == self.play_button => {
-                        warn!("todo: probably need to give resource_dir to Gameplay");
-                        Trans::Switch(Box::new(Gameplay))
-                    }
+                    t if t == self.play_button => Trans::Switch(Box::new(Gameplay::Level {
+                        resource_dir: self.resource_dir.to_string(),
+                        level: 0,
+                    })),
                     t if t == self.options_button => {
                         error!("todo: implement options");
                         Trans::None
