@@ -26,8 +26,8 @@ fn main() -> amethyst::Result<()> {
             .with_pass(DrawUi::new()),
     );
 
-    let _start_state = states::MainMenu::new(resource_dir.to_string());
-    let start_state = states::Gameplay::Level {
+    let start_state = states::MainMenu::new(resource_dir.to_string());
+    let _start_state = states::Gameplay::Level {
         resource_dir,
         level: 0,
     };
