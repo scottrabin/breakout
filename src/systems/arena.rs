@@ -1,6 +1,6 @@
 use amethyst::{
     core::Transform,
-    ecs::{Join, ReadExpect, ReadStorage, System, WriteStorage},
+    ecs::{Join, Read, ReadStorage, System, WriteStorage},
     //prelude::*,
 };
 
@@ -10,7 +10,7 @@ pub struct ArenaCollisionSystem;
 
 impl<'a> System<'a> for ArenaCollisionSystem {
     type SystemData = (
-        ReadExpect<'a, Arena>,
+        Read<'a, Arena>,
         ReadStorage<'a, ArenaBounded>,
         ReadStorage<'a, Transform>,
         WriteStorage<'a, Velocity>,

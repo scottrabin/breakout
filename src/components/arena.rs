@@ -6,6 +6,15 @@ pub struct Arena {
     pub height: u8,
 }
 
+impl Default for Arena {
+    fn default() -> Self {
+        Arena {
+            width: 0,
+            height: 0,
+        }
+    }
+}
+
 pub struct ArenaBounded;
 
 impl Component for ArenaBounded {
