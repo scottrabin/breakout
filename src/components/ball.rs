@@ -29,7 +29,7 @@ impl Ball {
             .with(sprite_render)
             .with(Ball { radius: 1. })
             .with(ArenaBounded)
-            .with(Velocity::new(0.1, 0.2)) // XXX hack TODO remove me
+            .with(Velocity::new(4., 8.)) // XXX hack TODO remove me
             .build()
     }
 }
