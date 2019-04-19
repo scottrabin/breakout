@@ -1,7 +1,7 @@
 use amethyst::{
     core::{timing::Time, Transform},
     ecs::{Join, Read, ReadStorage, System, WriteStorage},
-    prelude::*,
+    //prelude::*,
 };
 
 use crate::components::Velocity;

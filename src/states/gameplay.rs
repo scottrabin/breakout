@@ -1,8 +1,8 @@
 use amethyst::{ecs::Entity, prelude::*, renderer::SpriteRender};
 
 // FIXME: this `super::` nonsense seems like an antipattern; what's the idiomatic way?
-use super::super::common;
-use super::super::components::{Arena, Ball};
+use crate::common;
+use crate::components::{Arena, Ball};
 
 #[derive(Debug)]
 pub enum Gameplay {
@@ -48,6 +48,8 @@ impl SimpleState for Gameplay {
                         Ball::new(data.world, ball_sprite, &arena),
                     ],
                 };
+
+                data.world.add_resource(arena);
             }
             _ => warn!("Gameplay state started with: {:?}", self),
         }

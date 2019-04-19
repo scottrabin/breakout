@@ -38,6 +38,11 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(InputBundle::<String, String>::new())?
         .with_bundle(RenderBundle::new(pipe, Some(config)).with_sprite_sheet_processor())?
         .with(systems::InertiaSystem, "inertia_system", &[])
+        .with(
+            systems::ArenaCollisionSystem,
+            "arena_collision_system",
+            &["inertia_system"],
+        )
         .with(systems::DummySystem, "dummy_system", &[]);
     let mut game = Application::new("./", start_state, game_data)?;
 
