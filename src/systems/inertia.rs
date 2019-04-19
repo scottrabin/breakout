@@ -19,8 +19,8 @@ impl<'a> System<'a> for InertiaSystem {
         let elapsed_sec = time.delta_seconds();
         for (velocity, transform) in (&velocity, &mut transform).join() {
             let Velocity(v2) = velocity;
-            transform.translate_x(v2.x * elapsed_sec);
-            transform.translate_y(v2.y * elapsed_sec);
+            transform.prepend_translation_x(v2.x * elapsed_sec);
+            transform.prepend_translation_y(v2.y * elapsed_sec);
         }
     }
 }
