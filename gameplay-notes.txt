@@ -15,5 +15,5 @@ gameplay looks like
             - respects the "paused" resource
         - input-updates-paddle's-pos system
             - respects the "paused" resource
-        - 4x systems described in http://collision.rs
+        - 4x systems described in collision.rs
         - another collision system for the walls of the "arena"
