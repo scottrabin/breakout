@@ -1,4 +1,5 @@
-// XXX: Not sure if this is going to be a component or not
+// Resource
+
 #[derive(Debug)]
 pub struct Arena {
     pub width: u8,
