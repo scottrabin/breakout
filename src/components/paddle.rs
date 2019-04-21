@@ -9,9 +9,7 @@ impl Component for Paddle {
 }
 
 impl Paddle {
-    pub fn new(width: usize) -> Paddle {
-        Paddle {
-            width: width as f32,
-        }
+    pub fn new(width: f32) -> Paddle {
+        Paddle { width }
     }
 }

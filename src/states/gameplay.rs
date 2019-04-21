@@ -1,9 +1,4 @@
-use amethyst::{
-    core::Transform,
-    ecs::Entity,
-    prelude::*,
-    renderer::{SpriteRender, SpriteSheetHandle},
-};
+use amethyst::{core::Transform, ecs::Entity, prelude::*, renderer::SpriteRender};
 
 // FIXME: this `super::` nonsense seems like an antipattern; what's the idiomatic way?
 use crate::common;
@@ -30,22 +25,19 @@ impl SimpleState for Gameplay {
             } => {
                 warn!("todo: implement level selection for level {}", level);
 
-                let spritesheet = common::load_sprites(
-                    format!("{}/sprites/sheet0.png", resource_dir),
-                    format!("{}/sprites/sheet0.ron", resource_dir),
-                    data.world,
-                );
+                let spritesheet =
+                    common::load_sprites("sprites/sheet0.png", "sprites/sheet0.ron", data.world);
                 let ball_sprite = SpriteRender {
                     sprite_sheet: spritesheet.clone(),
                     sprite_number: 0,
                 };
 
                 let arena = Arena {
-                    width: 80,
-                    height: 60,
+                    width: 80.0,
+                    height: 60.0,
                 };
                 info!("arena: {:?}", arena);
-                initialize_paddle(data.world, &arena, spritesheet);
+                initialize_paddle(data.world, &arena);
 
                 *self = Gameplay::Initialized {
                     resource_dir: resource_dir.to_string(),
@@ -73,17 +65,25 @@ impl SimpleState for Gameplay {
     // that don't impact the gameplay .. don't put those things into systems!
 }
 
-fn initialize_paddle(world: &mut World, arena: &Arena, sprite_sheet: SpriteSheetHandle) {
+fn initialize_paddle(world: &mut World, arena: &Arena) {
+    let sprite_sheet = common::load_sprites(
+        "sprites/paddle/paddle.png",
+        "sprites/paddle/paddle.ron",
+        world,
+    );
+    let paddle_width = arena.width / 10.0;
+
     world
         .create_entity()
-        .with(Paddle::new((arena.width / 10) as usize))
+        .with(Paddle::new(paddle_width))
         .with({
             let mut transform = Transform::default();
-            transform.set_translation_xyz(arena.width as f32 / 2.0, arena.height as f32 * 0.1, 0.0);
+            transform.set_translation_xyz(arena.width / 2.0, arena.height / 10.0, 0.0);
+            transform.set_scale(paddle_width / 16.0, 1.0, 1.0);
             transform
         })
         .with(SpriteRender {
-            sprite_sheet: sprite_sheet.clone(),
+            sprite_sheet: sprite_sheet,
             sprite_number: 0,
         })
         .build();

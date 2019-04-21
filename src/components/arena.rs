@@ -2,15 +2,15 @@ use amethyst::ecs::{Component, HashMapStorage};
 
 #[derive(Debug)]
 pub struct Arena {
-    pub width: u8,
-    pub height: u8,
+    pub width: f32,
+    pub height: f32,
 }
 
 impl Default for Arena {
     fn default() -> Self {
         Arena {
-            width: 0,
-            height: 0,
+            width: 0.0,
+            height: 0.0,
         }
     }
 }
