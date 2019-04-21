@@ -8,7 +8,7 @@ use amethyst::{
 use crate::components::{Arena, ArenaBounded, Velocity};
 
 pub struct Ball {
-    radius: f32,
+    pub radius: f32,
 }
 
 impl Component for Ball {

@@ -51,6 +51,11 @@ fn main() -> amethyst::Result<()> {
             "paddle_input_system",
             &["input_system"],
         )
+        .with(
+            systems::collision::BallPaddleCollisionSystem,
+            "ball_paddle_collision_system",
+            &["paddle_input_system"],
+        )
         .with(systems::DummySystem, "dummy_system", &[]);
     let mut game = Application::new("./", start_state, game_data)?;
 
