@@ -1,8 +1,13 @@
-use amethyst::{ecs::Entity, prelude::*, renderer::SpriteRender};
+use amethyst::{
+    core::Transform,
+    ecs::Entity,
+    prelude::*,
+    renderer::{SpriteRender, SpriteSheetHandle},
+};
 
 // FIXME: this `super::` nonsense seems like an antipattern; what's the idiomatic way?
 use crate::common;
-use crate::components::{Arena, Ball};
+use crate::components::{Arena, Ball, Paddle};
 
 #[derive(Debug)]
 pub enum Gameplay {
@@ -40,6 +45,7 @@ impl SimpleState for Gameplay {
                     height: 60,
                 };
                 info!("arena: {:?}", arena);
+                initialize_paddle(data.world, &arena, spritesheet);
 
                 *self = Gameplay::Initialized {
                     resource_dir: resource_dir.to_string(),
@@ -65,4 +71,20 @@ impl SimpleState for Gameplay {
     }
     // consider implemeting fixed_update/update or shadow_fixed_update/shadow_update for animations
     // that don't impact the gameplay .. don't put those things into systems!
+}
+
+fn initialize_paddle(world: &mut World, arena: &Arena, sprite_sheet: SpriteSheetHandle) {
+    world
+        .create_entity()
+        .with(Paddle::new((arena.width / 10) as usize))
+        .with({
+            let mut transform = Transform::default();
+            transform.set_translation_xyz(arena.width as f32 / 2.0, arena.height as f32 * 0.1, 0.0);
+            transform
+        })
+        .with(SpriteRender {
+            sprite_sheet: sprite_sheet.clone(),
+            sprite_number: 0,
+        })
+        .build();
 }

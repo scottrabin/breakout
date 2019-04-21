@@ -8,7 +8,7 @@ use amethyst::{
     prelude::*,
     renderer::{DisplayConfig, DrawFlat2D, Pipeline, RenderBundle, Stage},
     ui::{DrawUi, UiBundle},
-    utils::application_root_dir,
+    utils::{application_dir, application_root_dir},
 };
 
 use breakout::{states, systems};
@@ -35,13 +35,21 @@ fn main() -> amethyst::Result<()> {
     let game_data = GameDataBuilder::default()
         .with_bundle(TransformBundle::new())?
         .with_bundle(UiBundle::<String, String>::new())?
-        .with_bundle(InputBundle::<String, String>::new())?
+        .with_bundle(
+            InputBundle::<String, String>::new()
+                .with_bindings_from_file(application_dir("resources/bindings_config.ron")?)?,
+        )?
         .with_bundle(RenderBundle::new(pipe, Some(config)).with_sprite_sheet_processor())?
         .with(systems::InertiaSystem, "inertia_system", &[])
         .with(
             systems::ArenaCollisionSystem,
             "arena_collision_system",
             &["inertia_system"],
+        )
+        .with(
+            systems::PaddleInputSystem,
+            "paddle_input_system",
+            &["input_system"],
         )
         .with(systems::DummySystem, "dummy_system", &[]);
     let mut game = Application::new("./", start_state, game_data)?;
