@@ -1,0 +1,19 @@
+
+gameplay looks like
+
+    entities with these components
+        - (ball,   pos, vel, powerups, sprite)
+        - (block,  pos, health,        sprite)
+        - (paddle, pos,                splite)
+
+    these resources
+        - paused (or playing)
+        - arena (extents of walls)
+
+    these systems
+        - vel-updates-pos system
+            - respects the "paused" resource
+        - input-updates-paddle's-pos system
+            - respects the "paused" resource
+        - 4x systems described in http://collision.rs
+        - another collision system for the walls of the "arena"

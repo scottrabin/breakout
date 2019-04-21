@@ -11,7 +11,7 @@ Container(
         image: Data(Rgba((0.19, 0.19, 0.19, 1.0), (channel: Srgb))),
     ),
     children: [
-        Text(
+        Label(
             transform: (
                 id: "title_text",
                 anchor: TopMiddle,

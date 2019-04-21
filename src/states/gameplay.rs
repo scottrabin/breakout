@@ -1,10 +1,56 @@
-use amethyst::prelude::*;
+use amethyst::{ecs::Entity, prelude::*, renderer::SpriteRender};
 
-pub struct Gameplay;
+// FIXME: this `super::` nonsense seems like an antipattern; what's the idiomatic way?
+use super::super::common;
+use super::super::components::{Arena, Ball};
+
+#[derive(Debug)]
+pub enum Gameplay {
+    Level {
+        resource_dir: String,
+        level: u8,
+    },
+    Initialized {
+        resource_dir: String,
+        entities: Vec<Entity>,
+    },
+}
 
 impl SimpleState for Gameplay {
-    fn on_start(&mut self, _data: StateData<'_, GameData<'_, '_>>) {
-        error!("todo: create the necessary entities and components for gameplay");
+    fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
+        match self {
+            Gameplay::Level {
+                resource_dir,
+                level,
+            } => {
+                warn!("todo: implement level selection for level {}", level);
+
+                let spritesheet = common::load_sprites(
+                    format!("{}/sprites/sheet0.png", resource_dir),
+                    format!("{}/sprites/sheet0.ron", resource_dir),
+                    data.world,
+                );
+                let ball_sprite = SpriteRender {
+                    sprite_sheet: spritesheet.clone(),
+                    sprite_number: 0,
+                };
+
+                let arena = Arena {
+                    width: 80,
+                    height: 60,
+                };
+                info!("arena: {:?}", arena);
+
+                *self = Gameplay::Initialized {
+                    resource_dir: resource_dir.to_string(),
+                    entities: vec![
+                        common::ortho_camera(data.world, &arena),
+                        Ball::new(data.world, ball_sprite, &arena),
+                    ],
+                };
+            }
+            _ => warn!("Gameplay state started with: {:?}", self),
+        }
     }
     fn on_stop(&mut self, _data: StateData<'_, GameData<'_, '_>>) {
         error!("todo: destroy the components used in gameplay");
