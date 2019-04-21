@@ -1,7 +1,7 @@
 use amethyst::ecs::{Component, HashMapStorage};
 
 pub struct Paddle {
-    width: usize,
+    pub width: usize,
 }
 
 impl Component for Paddle {
