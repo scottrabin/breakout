@@ -57,7 +57,7 @@ fn main() -> amethyst::Result<()> {
             &["paddle_input_system"],
         )
         .with(systems::DummySystem, "dummy_system", &[]);
-    let mut game = Application::new("./", start_state, game_data)?;
+    let mut game = Application::new(application_dir("resources")?, start_state, game_data)?;
 
     game.run();
 

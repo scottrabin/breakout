@@ -36,22 +36,24 @@ pub mod common {
             )))
             .build()
     }
+
     pub fn load_sprites(
-        image_path: String,
-        sheet_path: String,
+        image_path: &str,
+        sheet_path: &str,
         world: &mut World,
     ) -> SpriteSheetHandle {
-        let tx = world.read_resource::<Loader>().load(
+        let loader = world.read_resource::<Loader>();
+        let texture = loader.load(
             image_path,
             PngFormat,
             TextureMetadata::srgb_scale(),
             (),
             &world.read_resource(),
         );
-        world.read_resource::<Loader>().load(
+        loader.load(
             sheet_path,
             SpriteSheetFormat,
-            tx,
+            texture,
             (),
             &world.read_resource(),
         )

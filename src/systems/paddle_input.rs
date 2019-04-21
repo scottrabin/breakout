@@ -21,8 +21,8 @@ impl<'a> System<'a> for PaddleInputSystem {
                 if mv != 0.0 {
                     transform.set_translation_x(
                         (transform.translation().x + mv as f32)
-                            .min((80.0 - paddle.width) as f32)
-                            .max(paddle.width as f32),
+                            .min(80.0 - paddle.width / 2.0)
+                            .max(paddle.width / 2.0),
                     );
                 }
             }
