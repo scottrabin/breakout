@@ -5,7 +5,7 @@ use amethyst::{
     renderer::SpriteRender,
 };
 
-use super::Arena;
+use crate::components::{Arena, ArenaBounded, Velocity};
 
 pub struct Ball {
     radius: f32,
@@ -28,6 +28,8 @@ impl Ball {
             .with(trans)
             .with(sprite_render)
             .with(Ball { radius: 1. })
+            .with(ArenaBounded)
+            .with(Velocity::new(4., 8.)) // XXX hack TODO remove me
             .build()
     }
 }
