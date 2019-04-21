@@ -1,5 +1,5 @@
 use amethyst::{
-    core::nalgebra::Vector2,
+    core::math::Vector2,
     ecs::{Component, VecStorage},
 };
 
