@@ -7,3 +7,9 @@ pub struct Paddle {
 impl Component for Paddle {
     type Storage = HashMapStorage<Self>;
 }
+
+impl Paddle {
+    pub fn new(width: usize) -> Paddle {
+        Paddle { width }
+    }
+}
